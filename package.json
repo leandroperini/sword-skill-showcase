@@ -1,0 +1,26 @@
+{
+  "name": "sword-skill-showcase",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node ./bin/server.js",
+    "test": "STAGE=development mocha ./tests/**/*.spec.js"
+  },
+  "mocha": {
+    "timeout": "5000"
+  },
+  "dependencies": {
+    "cookie-parser": "~1.4.4",
+    "debug": "~2.6.9",
+    "express": "~4.16.1",
+    "http-errors": "~1.6.3",
+    "morgan": "~1.9.1",
+    "mysql": "^2.18.1"
+  },
+  "devDependencies": {
+    "chai": "^4.3.6",
+    "mocha": "^10.0.0",
+    "rewire": "^6.0.0",
+    "supertest": "^6.2.4"
+  }
+}

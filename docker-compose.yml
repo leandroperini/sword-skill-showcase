@@ -1,0 +1,35 @@
+version: "3"
+services:
+  node:
+    build:
+      context: .
+      dockerfile: docker/node/Dockerfile
+    working_dir: /var/www/sword
+    depends_on:
+      - "db"
+    environment:
+      DB_HOST: db
+      DB_NAME: sword
+      DB_USER: root
+      DB_PASSWD: root
+      STAGE: development
+      PORT: 3000
+      DEBUG: '*'
+    ports:
+      - "3000:3000"
+    restart: on-failure
+    volumes:
+      - .:/var/www/sword
+      - ./storage/logs:/var/logs
+    links:
+      - db
+    command: ["npm", "start"]
+  db:
+    image: mariadb:latest
+    ports:
+      - "33306:3306"
+    environment:
+      - MARIADB_ROOT_PASSWORD=root
+      - MARIADB_DATABASE=sword
+    volumes:
+      - ./:/var/www/sword
