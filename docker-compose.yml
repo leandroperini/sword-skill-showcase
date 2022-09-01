@@ -7,14 +7,6 @@ services:
     working_dir: /var/www/sword
     depends_on:
       - "db"
-    environment:
-      DB_HOST: db
-      DB_NAME: sword
-      DB_USER: root
-      DB_PASSWD: root
-      STAGE: development
-      PORT: 3000
-      DEBUG: '*'
     ports:
       - "3000:3000"
     restart: on-failure
@@ -23,7 +15,7 @@ services:
       - ./storage/logs:/var/logs
     links:
       - db
-    command: ["npm", "start"]
+    command: [ "npm","run", "start-${STAGE:-development}" ]
   db:
     image: mariadb:latest
     ports:

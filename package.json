@@ -1,26 +1,29 @@
 {
-  "name": "sword-skill-showcase",
-  "version": "0.0.0",
-  "private": true,
-  "scripts": {
-    "start": "node ./bin/server.js",
-    "test": "STAGE=development mocha ./tests/**/*.spec.js"
-  },
-  "mocha": {
-    "timeout": "5000"
-  },
-  "dependencies": {
-    "cookie-parser": "~1.4.4",
-    "debug": "~2.6.9",
-    "express": "~4.16.1",
-    "http-errors": "~1.6.3",
-    "morgan": "~1.9.1",
-    "mysql": "^2.18.1"
-  },
-  "devDependencies": {
-    "chai": "^4.3.6",
-    "mocha": "^10.0.0",
-    "rewire": "^6.0.0",
-    "supertest": "^6.2.4"
-  }
+    "name": "sword-skill-showcase",
+    "version": "0.0.0",
+    "private": true,
+    "scripts": {
+        "start-production": "node ./bin/server.js",
+        "start-development": "nodemon ./bin/server.js",
+        "test": "STAGE=development mocha ./tests/**/*.spec.js"
+    },
+    "mocha": {
+        "timeout": "3000"
+    },
+    "dependencies": {
+        "cookie-parser": "~1.4.4",
+        "express": "~4.16.1",
+        "http-errors": "~1.6.3",
+        "morgan": "~1.9.1",
+        "mysql2": "^2.3.3",
+        "sequelize": "^6.21.4"
+    },
+    "devDependencies": {
+        "chai": "^4.3.6",
+        "debug": "~2.6.9",
+        "mocha": "^10.0.0",
+        "nodemon": "^2.0.19",
+        "rewire": "^6.0.0",
+        "supertest": "^6.2.4"
+    }
 }

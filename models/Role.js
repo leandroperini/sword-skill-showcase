@@ -1,79 +1,31 @@
+const { Sequelize, DataTypes, Model } = require('sequelize');
 const db = require('../db/setup')
-class Role{
-    get id () {
-        return this._id;
-    }
-
-    set id (value) {
-        this._id = value;
-    }
-
-    get name () {
-        return this._name;
-    }
-
-    set name (value) {
-        this._name = value;
-    }
-
-    get permissions () {
-        return this._permissions.split(';');
-    }
-
-    /**
-     *
-     * @param {array} value
-     */
-    set permissions (value) {
-        this._permissions = value.join(';');
-    }
+const Employer = require('Employer')
 
 
-    /**
-     *
-     * @param {int} id
-     * @param {string} name
-     * @param {string} permissions
-     */
-    constructor (id, name, permissions) {
+const Role = db.define('Role', {
+    id: {
+        type: DataTypes.BIGINT.UNSIGNED,
+        autoIncrement: true,
+        primaryKey: true
+    },
+    name: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+    permissions: {
+        type: DataTypes.STRING,
+        get () {
+            return this.getDataValue('permissions').split(';');
+        },
+        set (value) {
+            this.setDataValue('permissions', value.join(';'));
+        }
+    }
+}, {
+    tableName: 'roles'
+});
 
-        this._id = id;
-        this._name = name;
-        this._permissions = permissions;
-    }
-
-    static get tableName () {
-        return 'role';
-    }
-
-    static get idColumn () {
-        return 'id';
-    }
-    async save (callback) {
-        return await db.runQuery(
-            "insert into " + Role.tableName + " set ?", {
-                name: this.name,
-                permissions: this._permissions
-            }, (error, results, fields) => {
-                console.log(results);
-                console.log(error);
-                console.log(fields);
-                if (error) throw error;
-                this.id = results.insertId
-                if(callback) callback();
-            }).then(()=>{
-            console.log('VAIEEEEEEEE');
-        });
-    }
-
-    /**
-     *
-     * @param {JSON} json
-     * @returns {Role}
-     */
-    static fromJson (json) {
-        return new Role(json.id || null, json.name || null, json.permissions || null)
-    }
-}
+Role.hasMany(Employer);
 
 module.exports = Role;
