@@ -2,6 +2,5 @@
 **/.git
 **/npm-debug.log
 **/coverage
-**/.env
 **/.idea
 **/dist

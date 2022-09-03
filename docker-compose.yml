@@ -15,7 +15,7 @@ services:
       - ./storage/logs:/var/logs
     links:
       - db
-    command: [ "npm","run", "start-${STAGE:-development}" ]
+    command: ["npm", "run", "start-${STAGE:-development}"]
   db:
     image: mariadb:latest
     ports:

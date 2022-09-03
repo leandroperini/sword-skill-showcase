@@ -1,14 +1,8 @@
-const Task = require('../models/Task')
+const Task = require("../models/Task");
 module.exports.insert = async (req, res, next) => {
-    const task = Task.fromJson(req.body);
-    result = await task.save(() => {
-        console.log("AISUASIKHADLIAHDLPASH");
-    });
-    console.log(result);
-    console.log(task);
-}
-
+  Task.create(req.body).then((task) => res.json(task));
+};
 
 module.exports.get = (req, res, next) => {
-    res.json('some message');
-}
+  Task.findAll().then((task) => res.json(task));
+};

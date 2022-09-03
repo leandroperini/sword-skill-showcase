@@ -2,28 +2,39 @@
     "name": "sword-skill-showcase",
     "version": "0.0.0",
     "private": true,
+    "engines": {
+        "node": ">=16 <18"
+    },
     "scripts": {
         "start-production": "node ./bin/server.js",
         "start-development": "nodemon ./bin/server.js",
-        "test": "STAGE=development mocha ./tests/**/*.spec.js"
+        "test": "STAGE=development mocha ./tests/**/*.spec.js",
+        "migrations-up": "npx sequelize-cli db:migrate --config ./db/migrations/config.json",
+        "migrations-down": "npx sequelize-cli db:migrate:undo:all --config ./db/migrations/config.json"
     },
     "mocha": {
-        "timeout": "3000"
+        "timeout": "3000",
+        "require": "./tests/setup.js"
     },
     "dependencies": {
         "cookie-parser": "~1.4.4",
+        "debug": "~2.6.9",
+        "dotenv": "^16.0.2",
         "express": "~4.16.1",
         "http-errors": "~1.6.3",
         "morgan": "~1.9.1",
         "mysql2": "^2.3.3",
-        "sequelize": "^6.21.4"
+        "sequelize": "^6.21.4",
+        "umzug": "^3.2.1"
     },
     "devDependencies": {
+        "chai-json-equal": "^0.0.1",
         "chai": "^4.3.6",
-        "debug": "~2.6.9",
         "mocha": "^10.0.0",
         "nodemon": "^2.0.19",
+        "prettier": "2.7.1",
         "rewire": "^6.0.0",
+        "sequelize-cli": "^6.4.1",
         "supertest": "^6.2.4"
     }
 }
