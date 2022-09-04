@@ -3,15 +3,20 @@ const express = require("express");
 const logger = require("morgan");
 const routes = require("./routes/loader");
 const db = require("./db/setup");
-
 const app = express();
+const { authenticate } = require("./middlewares/RequireAuth");
+const nonProductionStages = ["development", "test"];
 
-app.use(logger(process.env.STAGE === "development" ? "dev" : "default"));
+const hash = require("pbkdf2-password")();
+app.use(
+  logger(nonProductionStages.includes(process.env.STAGE) ? "dev" : "default")
+);
+
 app.use(express.json());
 
+app.use(authenticate);
 app.use("/", routes);
 
-// catch 404 and forward to error handler
 app.use(function (req, res, next) {
   db.connectionManager.close();
   next(createError(404));
@@ -22,11 +27,11 @@ app.use(function (err, req, res, next) {
   db.connectionManager.close();
   // set locals, only providing error in development
   res.locals.message = err.message;
-  res.locals.error = process.env.STAGE === "development" ? err : {};
+  res.locals.error = nonProductionStages.includes(process.env.STAGE) ? err : {};
 
   // render the error page
   res.status(err.status || 500);
-  if (process.env.STAGE === "development") console.error(err);
+  if (nonProductionStages.includes(process.env.STAGE)) console.error(err);
   res.json(err);
 });
 

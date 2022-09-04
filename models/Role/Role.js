@@ -29,7 +29,9 @@ const Role = db.define(
         return this.getDataValue("permissions").split(";");
       },
       set(value) {
-        const permissionsString = value.join(";");
+        const permissionsString = Array.isArray(value)
+          ? value.join(";")
+          : value;
         Permissions.validateString(permissionsString);
         this.setDataValue("permissions", permissionsString);
       },

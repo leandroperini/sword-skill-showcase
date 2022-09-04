@@ -7,7 +7,7 @@
     },
     "scripts": {
         "start-production": "node ./bin/server.js",
-        "start-development": "nodemon ./bin/server.js",
+        "start-development": "nodemon --trace-warnings --inspect ./bin/server.js",
         "test": "STAGE=development mocha ./tests/**/*.spec.js",
         "migrations-up": "npx sequelize-cli db:migrate --config ./db/migrations/config.json",
         "migrations-down": "npx sequelize-cli db:migrate:undo:all --config ./db/migrations/config.json"
@@ -25,11 +25,12 @@
         "morgan": "~1.9.1",
         "mysql2": "^2.3.3",
         "sequelize": "^6.21.4",
-        "umzug": "^3.2.1"
+        "umzug": "^3.2.1",
+        "pbkdf2-password": "^1.2.1"
     },
     "devDependencies": {
-        "chai-json-equal": "^0.0.1",
         "chai": "^4.3.6",
+        "chai-json-equal": "^0.0.1",
         "mocha": "^10.0.0",
         "nodemon": "^2.0.19",
         "prettier": "2.7.1",

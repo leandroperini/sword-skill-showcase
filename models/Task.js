@@ -24,6 +24,7 @@ const Task = db.define(
     },
     createdAt: {
       type: DataTypes.DATE,
+      defaultValue: DataTypes.NOW,
     },
   },
   {
