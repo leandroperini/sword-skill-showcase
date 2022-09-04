@@ -35,7 +35,7 @@ describe("Check /roles endpoints", function (done) {
         .set("Authorization", await employerDefault.authHeaderDefault());
       Expect(res.status).equal(200);
       Expect(res.headers["content-type"]).to.contain("application/json");
-      Expect(res.body).to.be.an("array").that.have.lengthOf(1);
+      Expect(res.body).to.be.an("array").that.have.lengthOf(2);
       Expect(res.body[0])
         .to.be.an("object")
         .that.have.jsonEqual((await roleDefault.supervised()).toJSON());
