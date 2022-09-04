@@ -9,14 +9,15 @@
         "start-production": "node ./bin/server.js",
         "start-development": "nodemon --trace-warnings --inspect ./bin/server.js",
         "test": "STAGE=development mocha ./tests/**/*.spec.js",
-        "migrations-up": "npx sequelize-cli db:migrate --config ./db/migrations/config.json",
-        "migrations-down": "npx sequelize-cli db:migrate:undo:all --config ./db/migrations/config.json"
+        "migrations-up": "BABEL_DISABLE_CACHE=1 npx sequelize-cli db:migrate",
+        "migrations-down": "BABEL_DISABLE_CACHE=1 npx sequelize-cli db:migrate:undo:all"
     },
     "mocha": {
         "timeout": "3000",
         "require": "./tests/setup.js"
     },
     "dependencies": {
+        "babel-register": "^6.26.0",
         "cookie-parser": "~1.4.4",
         "debug": "~2.6.9",
         "dotenv": "^16.0.2",
@@ -24,11 +25,12 @@
         "http-errors": "~1.6.3",
         "morgan": "~1.9.1",
         "mysql2": "^2.3.3",
+        "pbkdf2-password": "^1.2.1",
         "sequelize": "^6.21.4",
-        "umzug": "^3.2.1",
-        "pbkdf2-password": "^1.2.1"
+        "umzug": "^3.2.1"
     },
     "devDependencies": {
+        "@babel/preset-env": "^7.18.10",
         "chai": "^4.3.6",
         "chai-json-equal": "^0.0.1",
         "mocha": "^10.0.0",
